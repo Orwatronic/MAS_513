@@ -134,8 +134,6 @@ The main goal for this code is to get the x,y,z coordinates of the targeted obje
 Since, Xc and Yc are already found in pixel's and Zc in meters, the extrinsic and intrinsic parameters is achieved using the Pyrealsense2 library provided by Realsense , and as result the xc, yc and zc coordinates in meters of the boundary box center are found relative to the sensor coordinate, in other words how far the object is located from the sensor in x, y and z direction.
 
 ___How to run___
-
-
     • In order to be able to run this code make sure that you have all the files in folder, the find_coordinates.py file is the main file that used to get the coordinates. This code will find and print out the coordinates of different objects since it Yolov3 that is used it’s trained on COCO dataset, however it can easily be modified to find just the coordinates of the targeted object, then, these coordinates is saved into a csv.file called Coord so it can be sent using ROS to another node to move the manipulator using Moveit! to pick the targeted object. 
     
     • get_mouse_coordinates.py file  can be used to  find the coordinates for mouse pointer. 

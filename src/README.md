@@ -128,3 +128,16 @@ As MoveIt! seems to have difficulties with finding plans for the UR with full jo
 ```roslaunch ur5_moveit_config moveit_rviz.launch config:=true```
 
 
+___YOLO + OpenCV + Python + Realsense___
+
+The main goal for this code is to get the x,y,z coordinates of the targeted object, and in order to do so, a L515 Lidar is used. The L515 Lidar has RGB camera, depth camera and laser scan https://www.intelrealsense.com/lidar-camera-l515/ , so there are two possible methods to detect an object using this Lidar: (1) Image based detection. (2) Point cloud based detection, or the two alternatives can be fused. In this project, image based detection with YOLO v3 algorithm are used, as a result we obtain the boundary box of the targeted object. The center of this boundary box is found Xc,Yc in pixel dimension from the color frame that captured by the RGB camera, and for the third coordinate Zc, it found by getting the depth of the corresponding pixel in the depth frame which is captured by the depth camera.
+Since, Xc and Yc are already found in pixel's and Zc in meters, the extrinsic and intrinsic parameters is achieved using the Pyrealsense2 library provided by Realsense , and as result the xc, yc and zc coordinates in meters of the boundary box center are found relative to the sensor coordinate, in other words how far the object is located from the sensor in x, y and z direction.
+
+___How to run___
+    • In order to be able to run this code make sure that you have all the files in folder, the find_coordinates.py file is the main file that used to get the coordinates. This code will find and print out the coordinates of different objects since it Yolov3 that is used it’s trained on COCO dataset, however it can easily be modified to find just the coordinates of the targeted object, then, these coordinates is saved into a csv.file called Coord so it can be sent using ROS to another node to move the manipulator using Moveit! to pick the targeted object. 
+    • get_mouse_coordinates.py file  can be used to  find the coordinates for mouse pointer. 
+___Dependencies___ 
+    • Opencv
+    • Numpy
+    • Pyrealsense2
+
